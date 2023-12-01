@@ -8,7 +8,9 @@ Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-C
 
 ## Model
 - Model checkpoint available at [Checkpoint Link](https://drive.google.com/drive/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb?usp=sharing).
-- Official EG3D and L2CS checkpoints can be downloaded from [Official Links].
+- Official EG3D and L2CS checkpoints can be downloaded from  
+  [EG3D](https://github.com/NVlabs/eg3d/blob/main/docs/models.md)  
+  [L2CS](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)
 
 ## Training Method
 ```bash
