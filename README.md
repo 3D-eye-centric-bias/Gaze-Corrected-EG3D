@@ -38,3 +38,16 @@ python calc_gfas.py --network=~/checkpoint.pkl
 ```
 
 For other evaluation methods like FID, KID, etc., refer to the original [EG3D GitHub](https://github.com/NVlabs/eg3d/tree/main).
+
+## Citation
+```bash
+@inproceedings{Chan2022,
+  author = {Eric R. Chan and Connor Z. Lin and Matthew A. Chan and Koki Nagano and Boxiao Pan and Shalini De Mello and Orazio Gallo and Leonidas Guibas and Jonathan Tremblay and Sameh Khamis and Tero Karras and Gordon Wetzstein},
+  title = {Efficient Geometry-aware {3D} Generative Adversarial Networks},
+  booktitle = {CVPR},
+  year = {2022}
+}
+```
+
+## Acknowledge
+This project is built on source codes shared by [EG3D](https://github.com/NVlabs/eg3d) and [L2CS](https://github.com/Ahmednull/L2CS-Net)
