@@ -32,6 +32,7 @@ python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/chec
 ```
 
 ## Evaluation Method
+**GFAS Score**
 ```bash
 python calc_gfas.py --network=~/checkpoint.pkl
 ```
