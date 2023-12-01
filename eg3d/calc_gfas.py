@@ -196,9 +196,7 @@ def generate_images(
     cam2world_pose = LookAtPoseSampler.sample(3.14/2, 3.14/2, torch.tensor([0, 0, 0.2], device=device), radius=2.7, device=device)
     intrinsics = FOV_to_intrinsics(fov_deg, device=device)
     
-#-------------------------Our Implementation-----------------------
-# 
-# --#
+#-------------------------Our Implementation-------------------------#
     gaze_estimator = GazeEstimator(device=device)
 
     total_gaze_loss = 0  # Initialize total gaze loss
@@ -225,16 +223,10 @@ def generate_images(
             cam2world_pose = camera_params[:, :16].reshape(-1, 4, 4)
             face_pitch, face_yaw = extract_angles_from_cam2world(cam2world_pose)
 
-            img, gaze_loss, gaze_pitch, gaze_yaw = generate_and_estimate(G1, z, camera_params, conditioning_params, truncation_psi, truncation_cutoff, gaze_estimator, device, face_pitch, face_yaw)
+            _, gaze_loss, _, _ = generate_and_estimate(G1, z, camera_params, conditioning_params, truncation_psi, truncation_cutoff, gaze_estimator, device, face_pitch, face_yaw)
             
             # Accumulate gaze losses
-            total_gaze_loss += total_gaze_loss
-
-            gaze_pitch = gaze_pitch.cpu().item()
-            gaze_yaw = gaze_yaw.cpu().item()
-            
-            face_pitch = face_pitch.cpu().item()
-            face_yaw = face_yaw.cpu().item()
+            total_gaze_loss += gaze_loss
             i += 1
             
         print(f'[Progress] Seed: {seed_idx}/{num_seeds}')
