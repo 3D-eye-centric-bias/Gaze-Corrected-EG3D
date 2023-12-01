@@ -161,7 +161,6 @@ class StyleGAN2Loss(Loss):
                 loss_Gmain += gaze_loss
                 training_stats.report('Loss/G/gaze_loss', gaze_loss)
                 training_stats.report('Loss/G/total_loss', loss_Gmain)
-                print("Gaze Loss: ", gaze_loss)
                 #----------------------------------------------------------------------------------#
             with torch.autograd.profiler.record_function('Gmain_backward'):
                 loss_Gmain.mean().mul(gain).backward()
