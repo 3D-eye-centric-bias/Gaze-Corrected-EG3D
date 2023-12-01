@@ -7,7 +7,7 @@ This version integrates gaze estimation to correct gaze bias, ensuring eye orien
 Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
 
 ## Model
-- Pretrained model checkpoint available at [Checkpoint Link].
+- Model checkpoint available at [Checkpoint Link](https://drive.google.com/drive/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb?usp=sharing).
 - Official EG3D and L2CS checkpoints can be downloaded from [Official Links].
 
 ## Training Method
