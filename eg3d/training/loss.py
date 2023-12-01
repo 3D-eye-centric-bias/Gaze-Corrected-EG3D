@@ -63,6 +63,7 @@ class StyleGAN2Loss(Loss):
         self.filter_mode = filter_mode
         self.resample_filter = upfirdn2d.setup_filter([1,3,3,1], device=device)
         self.blur_raw_target = True
+        self.gaze_estimator = GazeEstimator(self.device) # Our Implementation
         assert self.gpc_reg_prob is None or (0 <= self.gpc_reg_prob <= 1)
 
     #-------------------Our Implementation-------------------#
