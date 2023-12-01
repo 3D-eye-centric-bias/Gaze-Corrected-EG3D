@@ -26,24 +26,6 @@ sys.path.append(os.path.abspath('../gaze_utils'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from gaze_utils.estimator import GazeEstimator
 from gaze_utils.utils import extract_angles_from_cam2world, prep_input_tensor
-
-def calculate_gaze_loss(self, gen_img, gen_c):
-    sr_image = gen_img['image']
-    cam2world_pose = gen_c[:, :16].reshape(-1, 4, 4)
-    face_pitch, face_yaw = extract_angles_from_cam2world(cam2world_pose)
-    face_pitch = face_pitch.squeeze()
-    face_yaw = face_yaw.squeeze()
-    gaze_loss = 0
-    input_image = prep_input_tensor(sr_image)
-    eye_pitch, eye_yaw = self.gaze_estimator.estimate(input_image)
-    estimated_angles = torch.stack((eye_pitch, eye_yaw), dim=1)
-    true_angles = torch.stack((face_pitch, face_yaw), dim=1)
-    gaze_loss += F.mse_loss(estimated_angles, true_angles)
-    
-    if gaze_loss.dim() > 0:
-        gaze_loss = gaze_loss.unsqueeze(1)
-    
-    return gaze_loss
 #----------------------------------------------------------------------------------#
 
 #----------------------------------------------------------------------------
@@ -82,6 +64,26 @@ class StyleGAN2Loss(Loss):
         self.resample_filter = upfirdn2d.setup_filter([1,3,3,1], device=device)
         self.blur_raw_target = True
         assert self.gpc_reg_prob is None or (0 <= self.gpc_reg_prob <= 1)
+
+    #-------------------Our Implementation-------------------#
+    def calculate_gaze_loss(self, gen_img, gen_c):
+        sr_image = gen_img['image']
+        cam2world_pose = gen_c[:, :16].reshape(-1, 4, 4)
+        face_pitch, face_yaw = extract_angles_from_cam2world(cam2world_pose)
+        face_pitch = face_pitch.squeeze()
+        face_yaw = face_yaw.squeeze()
+        gaze_loss = 0
+        input_image = prep_input_tensor(sr_image)
+        eye_pitch, eye_yaw = self.gaze_estimator.estimate(input_image)
+        estimated_angles = torch.stack((eye_pitch, eye_yaw), dim=1)
+        true_angles = torch.stack((face_pitch, face_yaw), dim=1)
+        gaze_loss += F.mse_loss(estimated_angles, true_angles)
+        
+        if gaze_loss.dim() > 0:
+            gaze_loss = gaze_loss.unsqueeze(1)
+        
+        return gaze_loss
+    #-------------------------------------------------------#
 
     def run_G(self, z, c, swapping_prob, neural_rendering_resolution, update_emas=False):
         if swapping_prob is not None:
@@ -148,7 +150,7 @@ class StyleGAN2Loss(Loss):
         if phase in ['Gmain', 'Gboth']:
             with torch.autograd.profiler.record_function('Gmain_forward'):
                 gen_img, _gen_ws = self.run_G(gen_z, gen_c, swapping_prob=swapping_prob, neural_rendering_resolution=neural_rendering_resolution)
-                gaze_loss = calculate_gaze_loss(gen_img, gen_c) # Our Implementation
+                gaze_loss = self.calculate_gaze_loss(gen_img, gen_c) # Our Implementation
                 gen_logits = self.run_D(gen_img, gen_c, blur_sigma=blur_sigma)
                 training_stats.report('Loss/scores/fake', gen_logits)
                 training_stats.report('Loss/signs/fake', gen_logits.sign())
