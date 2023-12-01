@@ -23,8 +23,9 @@ import os
 import torch.nn.functional as F
 
 sys.path.append(os.path.abspath('../gaze_utils'))
-from estimator import GazeEstimator
-from utils import extract_angles_from_cam2world, prep_input_tensor
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from gaze_utils.estimator import GazeEstimator
+from gaze_utils.utils import extract_angles_from_cam2world, prep_input_tensor
 
 def calculate_gaze_loss(self, gen_img, gen_c):
     sr_image = gen_img['image']
@@ -147,7 +148,7 @@ class StyleGAN2Loss(Loss):
         if phase in ['Gmain', 'Gboth']:
             with torch.autograd.profiler.record_function('Gmain_forward'):
                 gen_img, _gen_ws = self.run_G(gen_z, gen_c, swapping_prob=swapping_prob, neural_rendering_resolution=neural_rendering_resolution)
-                gaze_loss = self.calculate_gaze_loss(gen_img, gen_c) # Our Implementation
+                gaze_loss = calculate_gaze_loss(gen_img, gen_c) # Our Implementation
                 gen_logits = self.run_D(gen_img, gen_c, blur_sigma=blur_sigma)
                 training_stats.report('Loss/scores/fake', gen_logits)
                 training_stats.report('Loss/signs/fake', gen_logits.sign())
