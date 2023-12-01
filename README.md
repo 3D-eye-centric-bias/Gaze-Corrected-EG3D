@@ -14,9 +14,10 @@ Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-C
   
   2. [L2CS checkpoint link](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)
 
-## Training Method
+## Training
+Specify the paths to your **data.zip** and **checkpoint.pkl** for the data and resume arguments.
 ```bash
-python train.py --outdir=~/training-runs --cfg=ffhq --data=~/data/ --resume=~/checkpoint.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
+python train.py --outdir=~/training-runs --cfg=ffhq --data=~/data.zip --resume=~/checkpoint.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
 ```
 
 ## Image Generation
@@ -35,4 +36,4 @@ python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/chec
 python calc_gfas.py --network=~/checkpoint.pkl
 ```
 
-For other evaluation methods like FID, KID, etc., refer to the original EG3D GitHub [Link].
+For other evaluation methods like FID, KID, etc., refer to the original [EG3D GitHub](https://github.com/NVlabs/eg3d/tree/main).
