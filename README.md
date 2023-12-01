@@ -4,7 +4,7 @@ Enhanced EG3D model for realistic 3D face generation with improved gaze alignmen
 This version integrates gaze estimation to correct gaze bias, ensuring eye orientation is consistent with facial pose.
 
 ## Environment Setup
-Refer to [Environment Setup Link] for installation and setup instructions.
+Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
 
 ## Model
 - Pretrained model checkpoint available at [Checkpoint Link].
