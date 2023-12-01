@@ -29,3 +29,5 @@ eg3d/results
 eg3d_results
 
 #---------------------------------------#
+.gitignore
+.gitmodules
