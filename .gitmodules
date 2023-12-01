@@ -1,0 +1,3 @@
+[submodule "eg3d/L2CS-Net"]
+	path = eg3d/L2CS-Net
+	url = https://github.com/Ahmednull/L2CS-Net.git
