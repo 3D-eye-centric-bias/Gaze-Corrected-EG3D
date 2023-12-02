@@ -5,3 +5,5 @@ eg3d/pose/
 *.png
 *.mat
 *.bin
+dataset_preprocessing/ffhq/Deep3DFaceRecon_pytorch
+eg3d/L2CS-Net
