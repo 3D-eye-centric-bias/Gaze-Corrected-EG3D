@@ -40,8 +40,8 @@ Follow these steps in your bash terminal:
    cd eg3d/
    git clone https://github.com/Ahmednull/L2CS-Net.git
    ```
-8. **Install L2CS-Net model**  
-   Download L2CS-Net model checkpoint [here](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)
+8. **Download L2CS-Net model**  
+   L2CS-Net model checkpoint [here](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)
    
 9. **Clone Custom Deep3dFaceRecon_pytorch**
    ```bash
