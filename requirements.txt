@@ -1,0 +1,7 @@
+mtcnn
+scikit-image
+tensorflow
+kornia
+dominate
+trimesh
+deepface
