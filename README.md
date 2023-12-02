@@ -16,8 +16,8 @@ Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-C
 
 ## Data
 Due to the large dataset file, we provide toy dataset(10% of full dataset) at the link below.  
-Train dataset link: [Train](https://drive.google.com/drive/u/0/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb)  
-Eval dataset link: [Eval](https://drive.google.com/drive/u/0/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb)
+Train dataset link: [Train](https://drive.google.com/file/d/1fhgC6hBY8_cnaMOR-TiGL5Pnp2djk8qb/view?usp=sharing)  
+Eval dataset link: [Eval](https://drive.google.com/file/d/1A6_MHbBt2sxUUHu7VFBFmMo2uoWsL8uh/view?usp=sharing)
 
 ## Training
 Specify the paths to your **data.zip** and **checkpoint.pkl** for the data and resume arguments.
