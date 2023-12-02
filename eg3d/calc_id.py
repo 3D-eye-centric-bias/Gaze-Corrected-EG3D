@@ -31,7 +31,7 @@ from deepface import DeepFace
 @click.command()
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--num-gen', 'num_gen', type=int, help='Number of samples to generate', default=1024, required=True)
-@click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
+@click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=0.7, show_default=True)
 @click.option('--trunc-cutoff', 'truncation_cutoff', type=int, help='Truncation cutoff', default=14, show_default=True)
 @click.option('--fov-deg', help='Field of View of camera in degrees', type=int, required=False, metavar='float', default=18.837, show_default=True)
 @click.option('--outdir', help='Where to save the output images', type=str, required=True, metavar='DIR')
@@ -49,8 +49,8 @@ def calc_id(
 
     \b
     # Generate an image using pre-trained FFHQ model.
-    python calc_arcface.py --network=/root/volume/models/pretrained/ffhq512-128.pkl --outdir=output 
-    python calc_arcface.py --network=/root/volume/kinam/eg3d/eg3d/~/training-runs/00043-ffhq-140-gpus2-batch12-gamma1/network-snapshot-000100.pkl --outdir=output
+    python calc_id.py --network=/root/volume/models/pretrained/ffhq512-128.pkl --outdir=output 
+    python calc_id.py --network=/root/volume/kinam/eg3d/eg3d/~/training-runs/00043-ffhq-140-gpus2-batch12-gamma1/network-snapshot-000100.pkl --outdir=output
     """
     model_name = 'ArcFace'
     distance_metric = 'cosine'
