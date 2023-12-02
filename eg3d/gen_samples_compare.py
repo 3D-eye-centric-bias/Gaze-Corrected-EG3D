@@ -170,6 +170,7 @@ def merge_images(img1, img2):
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 #-------------------------Our Implementation-------------------------#
 @click.option('--network2', 'network_pkl2', help='Second network pickle filename', default="/root/volume/models/ffhq512-128.pkl", required=True)
+@click.option('--l2cs-path', help='Path to L2CS dataset', type=str, required=True)
 #--------------------------------------------------------------------#
 @click.option('--seeds', type=parse_range, help='List of random seeds (e.g., \'0,1,4-6\')', required=True)
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
@@ -194,6 +195,7 @@ def generate_images(
     shape_format: str,
     class_idx: Optional[int],
     reload_modules: bool,
+    l2cs_path: str,
 ):
     """Generate images using pretrained network pickle.
 
@@ -220,7 +222,7 @@ def generate_images(
     intrinsics = FOV_to_intrinsics(fov_deg, device=device)
     
 #-------------------------Our Implementation-------------------------#
-    gaze_estimator = GazeEstimator(device=device)
+    gaze_estimator = GazeEstimator(device=device, path=l2cs_path)
 
     total_gaze_loss1 = 0  # Initialize total gaze loss for network 1
     total_gaze_loss2 = 0  # Initialize total gaze loss for network 2

@@ -157,6 +157,7 @@ def to_pil_image(img_tensor):
 
 @click.command()
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
+@click.option('--l2cs-path', 'l2cs_path', help='Path to L2CS dataset', type=str)
 @click.option('--seeds', type=parse_range, help='List of random seeds (e.g., \'0,1,4-6\')', default='0-1023')
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=0.7, show_default=True)
 @click.option('--trunc-cutoff', 'truncation_cutoff', type=int, help='Truncation cutoff', default=14, show_default=True)
@@ -177,6 +178,7 @@ def generate_images(
     shape_format: str,
     class_idx: Optional[int],
     reload_modules: bool,
+    l2cs_path: str,
 ):
     """Generate images using pretrained network pickle.
 
@@ -197,7 +199,7 @@ def generate_images(
     intrinsics = FOV_to_intrinsics(fov_deg, device=device)
     
 #-------------------------Our Implementation-------------------------#
-    gaze_estimator = GazeEstimator(device=device)
+    gaze_estimator = GazeEstimator(device=device, path=l2cs_path)
 
     total_gaze_loss = 0  # Initialize total gaze loss
     num_seeds = len(seeds)
