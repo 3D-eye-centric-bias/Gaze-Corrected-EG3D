@@ -2,7 +2,7 @@
 
 Follow these steps in your bash terminal:
 
-1. **Change Directory to EG3D:**
+1. **Build environment**
    ```bash
    conda env create -f environment.yml
    ```
