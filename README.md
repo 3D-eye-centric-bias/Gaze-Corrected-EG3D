@@ -84,12 +84,16 @@ python calc_pose.py --file1=pose/labels_generate.json --file2=../dataset_preproc
   booktitle = {CVPR},
   year = {2022}
 }
+```
+```bash
 @inproceedings{Ahmednull,
     title={L2CS-Net: Fine-Grained Gaze Estimation in Unconstrained Environments},
     author={Ahmed A.Abdelrahman and Thorsten Hempel and Aly Khalifa and Ayoub Al-Hamadi},
     booktitle={IEEE International Conference on Image Processing},
     year={2022}
 }
+```
+```bash
 @inproceedings{deng2019accurate,
     title={Accurate 3D Face Reconstruction with Weakly-Supervised Learning: From Single Image to Image Set},
     author={Yu Deng and Jiaolong Yang and Sicheng Xu and Dong Chen and Yunde Jia and Xin Tong},
@@ -97,6 +101,7 @@ python calc_pose.py --file1=pose/labels_generate.json --file2=../dataset_preproc
     year={2019}
 }
 ```
+
 
 ## Acknowledge
 This project is built on source codes shared by [EG3D](https://github.com/NVlabs/eg3d), [L2CS](https://github.com/Ahmednull/L2CS-Net), [Deep3dFaceRecon_Pytorch](https://github.com/sicxu/Deep3DFaceRecon_pytorch)
