@@ -47,8 +47,8 @@ Follow these steps in your bash terminal:
    ```
 9. Install required models
     1. Download following files
-       - [BFM.zip](https://drive.google.com/drive/u/0/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb)
-       - [checkpoints.zip](https://drive.google.com/drive/u/0/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb)
+       - [BFM.zip](https://drive.google.com/file/d/13fPkjRxZP_OUvk_OKebi-R9Xn8Jk0EmH/view?usp=sharing)
+       - [checkpoints.zip](https://drive.google.com/file/d/12oBzBmwz0qIFNc18vKedtsfPqyP6rERY/view?usp=sharing)
     2. Unzip and move folders into Deep3dFaceRecon_pytorch directory
        ```bash
        DeepdFaceRecon_pytorch/
