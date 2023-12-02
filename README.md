@@ -14,6 +14,11 @@ Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-C
   
   2. [L2CS checkpoint link](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)
 
+## Data
+Due to the large dataset file, we provide toy dataset(10% of full dataset) at the link below.
+Train dataset link: [Train](https://drive.google.com/drive/u/0/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb) 
+Eval dataset link: [Eval](https://drive.google.com/drive/u/0/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb)
+
 ## Training
 Specify the paths to your **data.zip** and **checkpoint.pkl** for the data and resume arguments.
 ```bash
