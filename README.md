@@ -21,7 +21,7 @@ We provide a sample dataset for quick experiments:
 ## Training
 Set your paths and start training:
 ```bash
-python train.py --outdir=~/training-runs --cfg=ffhq --data=~/data.zip --resume=~/checkpoint.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
+python train.py --outdir=~/training-runs --cfg=ffhq --data=~/data.zip --resume=~/checkpoint.pkl --l2cs-path=~/l2cs_checkpoint.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
 ```
 
 ## Generate Images
