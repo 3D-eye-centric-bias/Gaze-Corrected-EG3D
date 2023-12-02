@@ -3,7 +3,7 @@
 ### ****Welcome** to Gaze-Corrected EG3D - **Enhanced EG3D model** with **improved gaze alignment!****
 
 ![image](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/assets/63842546/ec4959b1-5e5c-44ee-9c3d-175a5bc4818c)
-
+ 
 
 ## Quick Setup
 Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
