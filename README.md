@@ -36,8 +36,8 @@ python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/chec
 ```bash
 python calc_gfas.py --network=~/checkpoint.pkl
 ```
-
-For other evaluation methods like FID, KID, etc., refer to the original [EG3D GitHub](https://github.com/NVlabs/eg3d/tree/main).
+**FID**
+**KID**
 
 ## Citation
 ```bash
