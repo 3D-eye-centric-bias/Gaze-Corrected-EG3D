@@ -38,7 +38,7 @@ python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/chec
 ## Evaluation  
 **GFAS Score(Gaze-Face Alignment Score)**
 ```bash
-python calc_gfas.py --network=~/checkpoint.pkl
+python calc_gfas.py --network=~/checkpoint.pkl --l2cs-path=~/l2cs_checkpoint.pkl
 ```
 **FID(Frechet Inception Distance)**
 ```bash
