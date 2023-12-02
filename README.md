@@ -1,30 +1,30 @@
-# Gaze-Corrected EG3D
+# 🌟 Gaze-Corrected EG3D: Overcoming Camera-Facing Gaze Bias in EG3D Scene Generation
 
-Enhanced EG3D model for realistic 3D face generation with improved gaze alignment.  
-This version integrates gaze estimation to correct gaze bias, ensuring eye orientation is consistent with facial pose.
+### ****Welcome** to Gaze-Corrected EG3D - **Enhanced EG3D model** with **improved gaze alignment!****
 
-## Environment Setup
+![image](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/assets/63842546/ec4959b1-5e5c-44ee-9c3d-175a5bc4818c)
+
+
+## Quick Setup
 Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
 
-## Model
-- Model checkpoint available at [Checkpoint Link](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing).
-- You can download original EG3D checkpoints at
-  
-  [EG3D checkpoint link](https://github.com/NVlabs/eg3d/blob/main/docs/models.md)
+## Download Models
+- Our trained model is available [here](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing).
+- Original EG3D models are available [here](https://github.com/NVlabs/eg3d/blob/main/docs/models.md).  
+  (We used ffhq512-128.pkl as a baseline)
 
-
-## Data
-Due to the large dataset file, we provide toy dataset(10% of full dataset) at the link below.  
-Train dataset link: [Train](https://drive.google.com/file/d/1fhgC6hBY8_cnaMOR-TiGL5Pnp2djk8qb/view?usp=sharing)  
-Eval dataset link: [Eval](https://drive.google.com/file/d/1A6_MHbBt2sxUUHu7VFBFmMo2uoWsL8uh/view?usp=sharing)
+## Data Access
+We provide a sample dataset for quick experiments:
+- Training: [Download](https://drive.google.com/file/d/1fhgC6hBY8_cnaMOR-TiGL5Pnp2djk8qb/view?usp=sharing)
+- Evaluation: [Download](https://drive.google.com/file/d/1A6_MHbBt2sxUUHu7VFBFmMo2uoWsL8uh/view?usp=sharing)
 
 ## Training
-Specify the paths to your **data.zip** and **checkpoint.pkl** for the data and resume arguments.
+Set your paths and start training:
 ```bash
 python train.py --outdir=~/training-runs --cfg=ffhq --data=~/data.zip --resume=~/checkpoint.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
 ```
 
-## Image Generation
+## Generate Images
 1. Single Network
 ```bash
 python gen_samples.py --network=~/checkpoint.pkl --outdir=out/ --seeds=0-3
@@ -35,41 +35,41 @@ python gen_samples.py --network=~/checkpoint.pkl --outdir=out/ --seeds=0-3
 python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --outdir=out/ --seeds=0-3
 ```
 
-## Evaluation Method
-**GFAS Score**
+## Evaluation  
+**GFAS Score(Gaze-Face Alignment Score)**
 ```bash
 python calc_gfas.py --network=~/checkpoint.pkl
 ```
-**FID**
+**FID(Frechet Inception Distance)**
 ```bash
 #eg3d/
 python calc_metrics.py --network=~/checkpoint.pkl --metrics=fid50k_full --data=~/eval
 ```
 
-**KID**
+**KID(Kernel Inception Distance)**
 ```bash
 #eg3d/
 python calc_metrics.py --network=~/checkpoint.pkl --metrics=kid50k_full --data=~/eval
 ```
 
-**ID**
+**ID(Identity consistency)**
 ```bash
 #eg3d/
 python calc_id.py --network=~/checkpoint.pkl --outdir=out 
 ```
 
-**Pose**
-1. Generate random images and from base camera parameters and save in pose/ directory
+**Pose(Pose Accuracy)**
+1. Generate images with base camera parameters.
 ```bash
 #eg3d/
 python gen_samples_pose.py --network=~/checkpoint.pkl --outdir=pose
 ```
-2. Extract camera parameters from the generated images
+2. Extract camera parameters from images.
 ```bash
 #data_preprocessing/ffhq/
 python preprocess_in_the_wild.py --indir=../../eg3d/pose
 ```
-3. Calculate L2 distance between base and extracted camera parameters
+3. Calculate L2 distance between base and extracted camera parameters.
 ```bash
 #eg3d/
 python calc_pose.py --file1=pose/labels_generate.json --file2=../dataset_preprocessing/ffhq/pose/dataset.json
@@ -102,5 +102,5 @@ python calc_pose.py --file1=pose/labels_generate.json --file2=../dataset_preproc
 ```
 
 
-## Acknowledge
+## Acknowledgments
 This project is built on source codes shared by [EG3D](https://github.com/NVlabs/eg3d), [L2CS](https://github.com/Ahmednull/L2CS-Net), [Deep3dFaceRecon_Pytorch](https://github.com/sicxu/Deep3DFaceRecon_pytorch)
