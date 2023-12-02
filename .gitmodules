@@ -1,3 +1,6 @@
 [submodule "eg3d/L2CS-Net"]
 	path = eg3d/L2CS-Net
 	url = https://github.com/Ahmednull/L2CS-Net.git
+[submodule "dataset_preprocessing/ffhq/Deep3DFaceRecon_pytorch"]
+	path = dataset_preprocessing/ffhq/Deep3DFaceRecon_pytorch
+	url = https://github.com/sicxu/Deep3DFaceRecon_pytorch.git
