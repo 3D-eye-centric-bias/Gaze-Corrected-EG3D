@@ -37,7 +37,39 @@ python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/chec
 python calc_gfas.py --network=~/checkpoint.pkl
 ```
 **FID**
+```bash
+#eg3d/
+python calc_metrics.py --network=~/checkpoint.pkl --metrics=fid50k_full --data=~/eval
+```
+
 **KID**
+```bash
+#eg3d/
+python calc_metrics.py --network=~/checkpoint.pkl --metrics=kid50k_full --data=~/eval
+```
+
+**ID**
+```bash
+#eg3d/
+python calc_id.py --network=~/checkpoint.pkl --outdir=out 
+```
+
+**Pose**
+1. Generate random images and from base camera parameters and save in pose/ directory
+```bash
+#eg3d/
+python gen_samples_pose.py --network=~/checkpoint.pkl --outdir=pose
+```
+2. Extract camera parameters from the generated images
+```bash
+#data_preprocessing/ffhq/
+python preprocess_in_the_wild.py --indir=../../eg3d/pose
+```
+3. Calculate L2 distance between base and extracted camera parameters
+```bash
+#eg3d/
+python calc_pose.py --file1=pose/labels_generate.json --file2=../dataset_preprocessing/ffhq/pose/dataset.json
+```
 
 ## Citation
 ```bash
@@ -47,7 +79,19 @@ python calc_gfas.py --network=~/checkpoint.pkl
   booktitle = {CVPR},
   year = {2022}
 }
+@inproceedings{Ahmednull,
+    title={L2CS-Net: Fine-Grained Gaze Estimation in Unconstrained Environments},
+    author={Ahmed A.Abdelrahman and Thorsten Hempel and Aly Khalifa and Ayoub Al-Hamadi},
+    booktitle={IEEE International Conference on Image Processing},
+    year={2022}
+}
+@inproceedings{deng2019accurate,
+    title={Accurate 3D Face Reconstruction with Weakly-Supervised Learning: From Single Image to Image Set},
+    author={Yu Deng and Jiaolong Yang and Sicheng Xu and Dong Chen and Yunde Jia and Xin Tong},
+    booktitle={IEEE Computer Vision and Pattern Recognition Workshops},
+    year={2019}
+}
 ```
 
 ## Acknowledge
-This project is built on source codes shared by [EG3D](https://github.com/NVlabs/eg3d) and [L2CS](https://github.com/Ahmednull/L2CS-Net)
+This project is built on source codes shared by [EG3D](https://github.com/NVlabs/eg3d), [L2CS](https://github.com/Ahmednull/L2CS-Net), [Deep3dFaceRecon_Pytorch](https://github.com/sicxu/Deep3DFaceRecon_pytorch)
