@@ -6,7 +6,7 @@
 
 
 ## Quick Setup
-Jumpstart your journey with our [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md).
+Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
 
 ## Download Models
 - Grab our specially trained model [here](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing).
