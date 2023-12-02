@@ -13,6 +13,7 @@ Follow these steps in your bash terminal:
    ```
 3. **Create Conda Environment**
    ```bash
+   #eg3d/
    conda env create -f environment.yml
    ```
 4. **Activate Conda Environment**
@@ -41,6 +42,7 @@ Follow these steps in your bash terminal:
    ```
 8. **Clone L2CS-Net repository**
    ```bash
+   #ed3d/
    git clone https://github.com/Ahmednull/L2CS-Net.git
    ```
 9. **Clone Custom Deep3dFaceRecon_pytorch**
