@@ -1,0 +1,7 @@
+eg3d/~
+__pycache__/
+eg3d/out/
+eg3d/pose/
+*.png
+*.mat
+*.bin
