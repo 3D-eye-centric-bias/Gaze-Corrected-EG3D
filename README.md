@@ -8,11 +8,10 @@ Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-C
 
 ## Model
 - Model checkpoint available at [Checkpoint Link](https://drive.google.com/drive/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb?usp=sharing).
-- You can download original EG3D and L2CS checkpoints at
+- You can download original EG3D checkpoints at
   
-  1. [EG3D checkpoint link](https://github.com/NVlabs/eg3d/blob/main/docs/models.md)
-  
-  2. [L2CS checkpoint link](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)
+  [EG3D checkpoint link](https://github.com/NVlabs/eg3d/blob/main/docs/models.md)
+
 
 ## Data
 Due to the large dataset file, we provide toy dataset(10% of full dataset) at the link below.  
