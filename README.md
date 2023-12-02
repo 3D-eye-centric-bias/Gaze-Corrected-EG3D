@@ -35,31 +35,30 @@ python gen_samples.py --network=~/checkpoint.pkl --outdir=out/ --seeds=0-3
 python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --outdir=out/ --seeds=0-3
 ```
 
-## Evaluation
-Evaluate model's performance with these metrics:
-**GFAS Score** : Measure Gaze-Face Alignment Score
+## Evaluation  
+**GFAS Score(Gaze-Face Alignment Score)**
 ```bash
 python calc_gfas.py --network=~/checkpoint.pkl
 ```
-**FID**: Measure image quality and diversity
+**FID(Frechet Inception Distance)**
 ```bash
 #eg3d/
 python calc_metrics.py --network=~/checkpoint.pkl --metrics=fid50k_full --data=~/eval
 ```
 
-**KID**: Another image quality metric
+**KID(Kernel Inception Distance)**
 ```bash
 #eg3d/
 python calc_metrics.py --network=~/checkpoint.pkl --metrics=kid50k_full --data=~/eval
 ```
 
-**ID**: Check identity preservation in generated images
+**ID(Identity consistency)**
 ```bash
 #eg3d/
 python calc_id.py --network=~/checkpoint.pkl --outdir=out 
 ```
 
-**Pose**: Evaluate camera pose accuracy
+**Pose(Pose Accuracy)**
 1. Generate images with base camera parameters.
 ```bash
 #eg3d/
