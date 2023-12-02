@@ -21,20 +21,13 @@ import PIL.Image
 import torch
 from tqdm import tqdm
 import mrcfile
-
+import json
 
 import legacy
 from camera_utils import LookAtPoseSampler, FOV_to_intrinsics
 from torch_utils import misc
 from training.triplane import TriPlaneGenerator
 
-#-------------------------Our Implementation-------------------------#
-import torch
-import torch.nn.functional as F
-import os
-from gaze_utils.estimator import GazeEstimator
-from gaze_utils.utils import extract_angles_from_cam2world
-#--------------------------------------------------------------------#
 
 #----------------------------------------------------------------------------
 
@@ -107,53 +100,19 @@ def create_samples(N=256, voxel_origin=[0, 0, 0], cube_length=2.0):
 
     return samples.unsqueeze(0), voxel_origin, voxel_size
 
-#-------------------------Our Implementation-------------------------#
-def prep_input_tensor(image: torch.Tensor):
-    """Preparing a Torch Tensor as input to L2CS-Net."""
-    image = (image.float() * 127.5 + 128).clamp(0, 255)
-    device = image.device
-    image = F.interpolate(image, size=(448, 448), mode='bilinear', align_corners=False)
-
-    # Normalize
-    mean = torch.tensor([0.485, 0.456, 0.406], device=device).view(1, 3, 1, 1)
-    std = torch.tensor([0.229, 0.224, 0.225], device=device).view(1, 3, 1, 1)
+def load_json_data(filepath):
+    if os.path.exists(filepath):
+        with open(filepath, 'r') as f:
+            return json.load(f)
+    else:
+        return {"labels": []}
     
-    # Scale image
-    image = image.float() / 255.0
+def save_json_data(filepath, data):
+    with open(filepath, 'w') as f:
+        json.dump(data, f)
+    print(f'JSON saved to {filepath}')
 
-    image = (image - mean) / std
-
-    # Add dimension if not in batch mode
-    if len(image.shape) == 3:
-        image = image.unsqueeze(0)
-
-    return image
-
-def generate_and_estimate(G, z, camera_params, conditioning_params, truncation_psi, truncation_cutoff, gaze_estimator, device, face_pitch, face_yaw):
-    ws = G.mapping(z, conditioning_params, truncation_psi=truncation_psi, truncation_cutoff=truncation_cutoff)
-    img = G.synthesis(ws, camera_params)['image']
-    img_prep = prep_input_tensor(img)
-    img_cp = img_prep.clone()
-    img_cp = (img_cp.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
-    gaze_pitch, gaze_yaw = gaze_estimator.estimate(img_prep)
-    gaze_loss = F.mse_loss(torch.tensor([gaze_pitch, gaze_yaw], device=device), torch.tensor([face_pitch, face_yaw], device=device))
-    return img, gaze_loss.item(), gaze_pitch, gaze_yaw
-
-def convert_image(img_tensor):
-    if img_tensor.ndim == 3:
-        img_tensor = img_tensor.unsqueeze(0)  # Add batch dimension
-    img_cp = img_tensor.clone()
-    img_cp = (img_cp.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
-    return img_cp
-
-def to_pil_image(img_tensor):
-    if img_tensor.ndim == 3:
-        img_tensor = img_tensor.unsqueeze(0)  
-    img_cp = img_tensor.clone()
-    img_cp = (img_cp.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
-    return PIL.Image.fromarray(img_cp[0].cpu().numpy(), 'RGB')
-#--------------------------------------------------------------------#
-
+#----------------------------------------------------------------------------
 
 @click.command()
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
@@ -161,6 +120,7 @@ def to_pil_image(img_tensor):
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=0.7, show_default=True)
 @click.option('--trunc-cutoff', 'truncation_cutoff', type=int, help='Truncation cutoff', default=14, show_default=True)
 @click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
+@click.option('--outdir', help='Where to save the output images', type=str, default='pose', metavar='DIR')
 @click.option('--shapes', help='Export shapes as .mrc files viewable in ChimeraX', type=bool, required=False, metavar='BOOL', default=False, show_default=True)
 @click.option('--shape-res', help='', type=int, required=False, metavar='int', default=512, show_default=True)
 @click.option('--fov-deg', help='Field of View of camera in degrees', type=int, required=False, metavar='float', default=18.837, show_default=True)
@@ -171,6 +131,7 @@ def generate_images(
     seeds: List[int],
     truncation_psi: float,
     truncation_cutoff: int,
+    outdir: str,
     shapes: bool,
     shape_res: int,
     fov_deg: float,
@@ -187,56 +148,73 @@ def generate_images(
     python gen_samples.py --outdir=output --trunc=0.7 --seeds=0-5 --shapes=True\\
         --network=ffhq-rebalanced-128.pkl
     """
-    
-    print('Loading networks...')
+
+    print('Loading networks from "%s"...' % network_pkl)
     device = torch.device('cuda')
     with dnnlib.util.open_url(network_pkl) as f:
-        G1 = legacy.load_network_pkl(f)['G_ema'].to(device) # type: ignore
+        G = legacy.load_network_pkl(f)['G_ema'].to(device) # type: ignore
+
+    # Specify reload_modules=True if you want code modifications to take effect; otherwise uses pickled code
+    if reload_modules:
+        print("Reloading Modules!")
+        G_new = TriPlaneGenerator(*G.init_args, **G.init_kwargs).eval().requires_grad_(False).to(device)
+        misc.copy_params_and_buffers(G, G_new, require_all=True)
+        G_new.neural_rendering_resolution = G.neural_rendering_resolution
+        G_new.rendering_kwargs = G.rendering_kwargs
+        G = G_new
+
+    os.makedirs(outdir, exist_ok=True)
 
     cam2world_pose = LookAtPoseSampler.sample(3.14/2, 3.14/2, torch.tensor([0, 0, 0.2], device=device), radius=2.7, device=device)
     intrinsics = FOV_to_intrinsics(fov_deg, device=device)
-    
-#-------------------------Our Implementation-------------------------#
-    gaze_estimator = GazeEstimator(device=device)
-
-    total_gaze_loss = 0  # Initialize total gaze loss
-    num_seeds = len(seeds)
-#--------------------------------------------------------------------#
+    #--------------Our Implementation---------------#
+    json_data = {"labels": []}
+    json_path = f'{outdir}/labels_generate.json'
+    json_data  = load_json_data(json_path)
+    temp_labels = []
+    #-----------------------------------------------#
 
     # Generate images.
     for seed_idx, seed in enumerate(seeds):
         print('Generating image for seed %d (%d/%d) ...' % (seed, seed_idx, len(seeds)))
-        z = torch.from_numpy(np.random.RandomState(seed).randn(1, G1.z_dim)).to(device)
+        z = torch.from_numpy(np.random.RandomState(seed).randn(1, G.z_dim)).to(device)
+
+        #-----------------------------------Our Implementation-----------------------------------#
+        angles = [(np.random.uniform(-0.4, 0.4), np.random.uniform(-0.4, 0.4))]
+        #---------------------------------------------------------------------------------------#
 
         imgs = []
-        angle_p = -0.2
-        i=0
-        for angle_y, angle_p in [(.4, angle_p), (0, angle_p), (-.4, angle_p)]:
-            cam_pivot = torch.tensor(G1.rendering_kwargs.get('avg_camera_pivot', [0, 0, 0]), device=device)
-            cam_radius = G1.rendering_kwargs.get('avg_camera_radius', 2.7)
+        for angle_y, angle_p in angles:
+            cam_pivot = torch.tensor(G.rendering_kwargs.get('avg_camera_pivot', [0, 0, 0]), device=device)
+            cam_radius = G.rendering_kwargs.get('avg_camera_radius', 2.7)
             cam2world_pose = LookAtPoseSampler.sample(np.pi/2 + angle_y, np.pi/2 + angle_p, cam_pivot, radius=cam_radius, device=device)
             conditioning_cam2world_pose = LookAtPoseSampler.sample(np.pi/2, np.pi/2, cam_pivot, radius=cam_radius, device=device)
             camera_params = torch.cat([cam2world_pose.reshape(-1, 16), intrinsics.reshape(-1, 9)], 1)
             conditioning_params = torch.cat([conditioning_cam2world_pose.reshape(-1, 16), intrinsics.reshape(-1, 9)], 1)
 
-#--------------------------------Our Implementation------------------------------#
-            cam2world_pose = camera_params[:, :16].reshape(-1, 4, 4)
-            face_pitch, face_yaw = extract_angles_from_cam2world(cam2world_pose)
+            #----------------Our Implementation----------------#
+            camera_params_list = camera_params.cpu().numpy().tolist()
+            filename = f"seed{seed:04d}.png"
+            temp_labels.append([filename, camera_params_list[0]])
+            if len(temp_labels) >= 100:
+                json_data["labels"].extend(temp_labels)
+                save_json_data(json_path, json_data)
+                temp_labels = []
+            #--------------------------------------------------#
 
-            _, gaze_loss, _, _ = generate_and_estimate(G1, z, camera_params, conditioning_params, truncation_psi, truncation_cutoff, gaze_estimator, device, face_pitch, face_yaw)
-            
-            # Accumulate gaze losses
-            total_gaze_loss += gaze_loss
-            i += 1
-            
-        print(f'[Progress] Seed: {seed_idx}/{num_seeds}')
+            ws = G.mapping(z, conditioning_params, truncation_psi=truncation_psi, truncation_cutoff=truncation_cutoff)
+            img = G.synthesis(ws, camera_params)['image']
 
-        # Calculate average gaze loss for each network
-    avg_gaze_loss = total_gaze_loss / num_seeds
+            img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
+            PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/seed{seed:04d}.png')
+            imgs.append(img)
 
-    # Print the average gaze losses
-    print(f'GFAS: {avg_gaze_loss}')
-#--------------------------------------------------------------------------------#
+    #----------------Our Implementation----------------#
+    if temp_labels:
+        json_data["labels"].extend(temp_labels)
+        save_json_data(json_path, json_data)
+    print('Process finished!')
+    #--------------------------------------------------#
 
 #----------------------------------------------------------------------------
 
