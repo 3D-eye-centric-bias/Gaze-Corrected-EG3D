@@ -2,30 +2,26 @@
 
 Follow these steps in your bash terminal:
 
-1. **Change Directory to EG3D:**
+1. **Build environment**
    ```bash
-   cd eg3d
+   conda env create -f environment.yml
    ```
 2. **Update Conda:**
    ```bash
    conda update -n base -c defaults conda
    conda clean --all
    ```
-3. **Create Conda Environment**
-   ```bash
-   conda env create -f environment.yml
-   ```
-4. **Activate Conda Environment**
+3. **Activate Conda Environment**
    ```bash
    conda activate eg3d
    ```
-5. **Remove Existing CUDA and Install Version 11.8:**
-   This will require a system reboot.
+4. **Remove Existing CUDA and Install Version 11.8:**  
+   **[Warning] This will require a system reboot.**
    ```bash
    sudo apt-get purge cuda* && sudo apt-get autoremove && sudo apt-get autoclean && sudo rm -rf /usr/local/cuda*
    sudo reboot
    ```
-6. **Install CUDA 11.8:**
+5. **Install CUDA 11.8:**
    ```bash
    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
    sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -35,8 +31,28 @@ Follow these steps in your bash terminal:
    sudo apt-get update
    sudo apt-get -y install cuda-11-8
    ```
-7. **Install PyTorch with CUDA 11.8:**
+6. **Install PyTorch with CUDA 11.8:**
    ```bash
    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 --default-timeout=150
    ```
-   
+7. **Clone L2CS-Net repository**
+   ```bash
+   cd eg3d/
+   git clone https://github.com/Ahmednull/L2CS-Net.git
+   ```
+8. **Clone Custom Deep3dFaceRecon_pytorch**
+   ```bash
+   cd dataset_preprocessing/ffhq
+   git clone https://github.com/3D-eye-centric-bias/Deep3DFaceRecon_pytorch.git
+   ```
+9. **Install Nvdiffrast**
+    ```bash
+    cd Deep3dFaceRecon_pytorch/nvdiffrast
+    pip install .
+    ```
+10. **Install Required envireonments**  
+    cd to main directory (Gaze-Corrected-EG3D)
+    ```bash
+    cd ../../../../
+    pip install -r requirements.txt
+    ```
