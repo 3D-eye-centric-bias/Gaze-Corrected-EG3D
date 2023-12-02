@@ -56,6 +56,6 @@ Follow these steps in your bash terminal:
 11. **Install Required envireonments**  
     cd to main directory (Gaze-Corrected-EG3D)
     ```bash
-    cd ../../../../../
+    cd ../../../../
     pip install -r requirements.txt
     ```
