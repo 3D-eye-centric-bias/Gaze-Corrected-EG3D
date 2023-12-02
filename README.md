@@ -7,7 +7,7 @@ This version integrates gaze estimation to correct gaze bias, ensuring eye orien
 Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
 
 ## Model
-- Model checkpoint available at [Checkpoint Link](https://drive.google.com/drive/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb?usp=sharing).
+- Model checkpoint available at [Checkpoint Link](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing).
 - You can download original EG3D checkpoints at
   
   [EG3D checkpoint link](https://github.com/NVlabs/eg3d/blob/main/docs/models.md)
