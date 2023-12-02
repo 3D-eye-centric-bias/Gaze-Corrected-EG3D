@@ -45,12 +45,24 @@ Follow these steps in your bash terminal:
    cd dataset_preprocessing/ffhq
    git clone https://github.com/3D-eye-centric-bias/Deep3DFaceRecon_pytorch.git
    ```
-9. **Install Nvdiffrast**
+9. Install required models
+    1. Download following files
+       - [BFM.zip](https://drive.google.com/drive/u/0/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb)
+       - [checkpoints.zip](https://drive.google.com/drive/u/0/folders/1Bl__aGhCtGBXNSnpAaTAsozxzkykuFjb)
+    2. Unzip and move folders into Deep3dFaceRecon_pytorch directory
+       ```bash
+       DeepdFaceRecon_pytorch/
+          - BFM
+          - checkpoints
+          - data
+          - ...
+       ```
+10. **Install Nvdiffrast**
     ```bash
     cd Deep3dFaceRecon_pytorch/nvdiffrast
     pip install .
     ```
-10. **Install Required envireonments**  
+11. **Install Required envireonments**  
     cd to main directory (Gaze-Corrected-EG3D)
     ```bash
     cd ../../../../
