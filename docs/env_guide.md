@@ -19,7 +19,7 @@ Follow these steps in your bash terminal:
    ```bash
    conda activate eg3d
    ```
-5. **Remove Existing CUDA and Install Version 11.8:**
+5. **Remove Existing CUDA and Install Version 11.8:**  
    **[Warning] This will require a system reboot.**
    ```bash
    sudo apt-get purge cuda* && sudo apt-get autoremove && sudo apt-get autoclean && sudo rm -rf /usr/local/cuda*
