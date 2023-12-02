@@ -141,6 +141,7 @@ def parse_comma_separated_list(s):
 @click.option('--mirror',       help='Enable dataset x-flips', metavar='BOOL',                  type=bool, default=False, show_default=True)
 @click.option('--aug',          help='Augmentation mode',                                       type=click.Choice(['noaug', 'ada', 'fixed']), default='noaug', show_default=True)
 @click.option('--resume',       help='Resume from given network pickle', metavar='[PATH|URL]',  type=str)
+@click.option('--l2cs-path',    help='Path to L2CS dataset',                                    type=str)
 @click.option('--freezed',      help='Freeze first layers of D', metavar='INT',                 type=click.IntRange(min=0), default=0, show_default=True)
 
 # Misc hyperparameters.
@@ -251,6 +252,8 @@ def main(**kwargs):
     c.image_snapshot_ticks = c.network_snapshot_ticks = opts.snap
     c.random_seed = c.training_set_kwargs.random_seed = opts.seed
     c.data_loader_kwargs.num_workers = opts.workers
+    c.loss_kwargs.l2cs_path = opts.l2cs_path
+    print(f'c.loss_kwargs.l2cs_path: {c.loss_kwargs.l2cs_path}')
 
     # Sanity checks.
     if c.batch_size % c.num_gpus != 0:

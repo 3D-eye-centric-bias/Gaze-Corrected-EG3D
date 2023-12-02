@@ -12,10 +12,10 @@ from model import getArch
 
 class GazeEstimator:
 
-    def __init__(self, device):
+    def __init__(self, device, path):
         self.device = device
         self.arch = "ResNet50"
-        self.weight_path = "/root/volume/models/L2CSNet_gaze360.pkl"
+        self.weight_path = path
         if not os.path.exists(self.weight_path):
             raise FileNotFoundError("The weight path does not exist.")
 #------------From L2CS-Net Code----------------#
