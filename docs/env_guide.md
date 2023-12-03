@@ -42,14 +42,16 @@ Follow these steps in your bash terminal:
    git clone https://github.com/Ahmednull/L2CS-Net.git
    ```
 8. **Download L2CS-Net model**  
-   L2CS-Net model checkpoint [here](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)
+   1. Download L2CS-Net model checkpoint [here](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)  
+
+   2. unzip L2CSNet_gaze360.pkl-20231203T031746Z-001.zip to get L2CSNet_gaze360.pkl
    
-9. **Clone Custom Deep3dFaceRecon_pytorch**
+10. **Clone Custom Deep3dFaceRecon_pytorch**
    ```bash
    cd dataset_preprocessing/ffhq
    git clone https://github.com/3D-eye-centric-bias/Deep3DFaceRecon_pytorch.git
    ```
-10. **Install required models**
+11. **Install required models**
     1. Download following files
        - [BFM.zip](https://drive.google.com/file/d/13fPkjRxZP_OUvk_OKebi-R9Xn8Jk0EmH/view?usp=sharing)
        - [checkpoints.zip](https://drive.google.com/file/d/12oBzBmwz0qIFNc18vKedtsfPqyP6rERY/view?usp=sharing)
@@ -61,12 +63,12 @@ Follow these steps in your bash terminal:
           - data
           - ...
        ```
-11. **Install Nvdiffrast**
+12. **Install Nvdiffrast**
     ```bash
     cd Deep3dFaceRecon_pytorch/nvdiffrast
     pip install .
     ```
-12. **Install Required envireonments**  
+13. **Install Required envireonments**  
     cd to main directory (Gaze-Corrected-EG3D)
     ```bash
     cd ../../../../
