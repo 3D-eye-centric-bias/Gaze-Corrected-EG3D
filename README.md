@@ -37,6 +37,11 @@ python gen_samples.py --network=~/model.pkl --outdir=out --seeds=0-3
 python gen_samples_compare.py --network=~/model1.pkl --network2=~/model2.pkl --l2cs-path=~/L2CSNet_gaze360.pkl --outdir=out --seeds=0-3
 ```
 
+3. Generate images and sort based on GFAS score
+```bash
+python gen_good_samples.py --network=~/model.pkl --l2cs-path=~/L2CSNet_gaze360.pkl --outdir=out
+```
+
 ## Evaluation  
 **GFAS Score(Gaze-Face Alignment Score)**
 ```bash
