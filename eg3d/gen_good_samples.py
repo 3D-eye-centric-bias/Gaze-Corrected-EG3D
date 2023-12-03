@@ -34,6 +34,7 @@ import torch.nn.functional as F
 import os
 from gaze_utils.estimator import GazeEstimator
 from gaze_utils.utils import extract_angles_from_cam2world
+import shutil
 #--------------------------------------------------------------------#
 
 #----------------------------------------------------------------------------
@@ -158,6 +159,7 @@ def to_pil_image(img_tensor):
 @click.command()
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--l2cs-path', 'l2cs_path', help='Path to L2CS dataset', type=str, required=True)
+@click.option('--outdir', 'out', help='Output directory', type=str, metavar='DIR', required=True)
 @click.option('--seeds', type=parse_range, help='List of random seeds (e.g., \'0,1,4-6\')', default='0-1023')
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=0.7, show_default=True)
 @click.option('--trunc-cutoff', 'truncation_cutoff', type=int, help='Truncation cutoff', default=14, show_default=True)
@@ -169,6 +171,7 @@ def to_pil_image(img_tensor):
 @click.option('--reload_modules', help='Overload persistent modules?', type=bool, required=False, metavar='BOOL', default=False, show_default=True)
 def generate_images(
     network_pkl: str,
+    out: str,
     seeds: List[int],
     truncation_psi: float,
     truncation_cutoff: int,
@@ -203,6 +206,7 @@ def generate_images(
 
     total_gaze_loss = 0  # Initialize total gaze loss
     num_seeds = len(seeds)
+    gaze_loss_and_images = []
 #--------------------------------------------------------------------#
 
     # Generate images.
@@ -213,6 +217,7 @@ def generate_images(
         imgs = []
         angle_p = -0.2
         i=0
+        seed_gaze_loss = 0
         for angle_y, angle_p in [(.4, angle_p), (0, angle_p), (-.4, angle_p)]:
             cam_pivot = torch.tensor(G1.rendering_kwargs.get('avg_camera_pivot', [0, 0, 0]), device=device)
             cam_radius = G1.rendering_kwargs.get('avg_camera_radius', 2.7)
@@ -220,6 +225,12 @@ def generate_images(
             conditioning_cam2world_pose = LookAtPoseSampler.sample(np.pi/2, np.pi/2, cam_pivot, radius=cam_radius, device=device)
             camera_params = torch.cat([cam2world_pose.reshape(-1, 16), intrinsics.reshape(-1, 9)], 1)
             conditioning_params = torch.cat([conditioning_cam2world_pose.reshape(-1, 16), intrinsics.reshape(-1, 9)], 1)
+
+            ws = G1.mapping(z, conditioning_params, truncation_psi=truncation_psi, truncation_cutoff=truncation_cutoff)
+            img = G1.synthesis(ws, camera_params)['image']
+
+            img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
+            imgs.append(img)
 
 #--------------------------------Our Implementation------------------------------#
             cam2world_pose = camera_params[:, :16].reshape(-1, 4, 4)
@@ -229,15 +240,22 @@ def generate_images(
             
             # Accumulate gaze losses
             total_gaze_loss += gaze_loss
+            seed_gaze_loss += gaze_loss
             i += 1
-            
-        print(f'[Progress] Seed: {seed_idx}/{num_seeds}')
+        img_concat = torch.cat(imgs, dim=2)
+        avg_seed_gaze_loss = seed_gaze_loss / len(imgs)
+        gaze_loss_and_images.append((avg_seed_gaze_loss, img_concat, seed))
 
-        # Calculate average gaze loss for each network
-    avg_gaze_loss = total_gaze_loss / num_seeds
+    # Sort based on gaze loss
+    gaze_loss_and_images.sort(key=lambda x: x[0])
 
-    # Print the average gaze losses
-    print(f'GFAS: {avg_gaze_loss}')
+    if not os.path.exists(out):
+        os.makedirs(out)
+
+    # Save images in order of ascending gaze loss, including seed number in filename
+    for idx, (loss, img, seed) in enumerate(gaze_loss_and_images):
+        PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{out}/sorted_{idx:04d}_seed{seed:04d}.png')
+
 #--------------------------------------------------------------------------------#
 
 #----------------------------------------------------------------------------
