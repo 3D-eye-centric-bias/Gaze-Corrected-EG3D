@@ -57,6 +57,16 @@ python gen_samples_compare.py --network=~/model1.pkl --network2=~/model2.pkl --l
 python gen_good_samples.py --network=~/model.pkl --l2cs-path=~/L2CSNet_gaze360.pkl --outdir=out
 ```
 
+## Generate Videos
+You need to set additional environment for generating video:
+```
+pip install --upgrade imageio_ffmpeg
+```
+Generating video command:
+```
+python gen_videos.py —outdir=out —trunc=0.7 —seeds=346,815,52612 —grid=3x1 —network=~/model.pkl
+```
+
 ## Evaluation  
 You can evaluate the trained model :
 
