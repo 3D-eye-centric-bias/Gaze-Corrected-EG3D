@@ -34,7 +34,7 @@ python gen_samples.py --network=~/checkpoint.pkl --trunc=0.7 --outdir=out --seed
 
 2. Comparing Two Networks
 ```bash
-python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --l2cs-path=~/l2cs_checkpoint.pkl --outdir=out --seeds=0-3
+python gen_samples_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --l2cs-path=~/l2cs_checkpoint.pkl --outdir=out --seeds=0-3
 ```
 
 ## Evaluation  
