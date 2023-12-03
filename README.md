@@ -9,30 +9,32 @@
 Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
 
 ## Download Models
-- Our trained model is available [here](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing).
+- Our trained model is available [here](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing) (360MB).
 - Original EG3D models are available [here](https://github.com/NVlabs/eg3d/blob/main/docs/models.md).  
   (We used ffhq512-128.pkl as a baseline)
 
 ## Data Access
-We provide a sample dataset for quick experiments:
-- Training: [Download](https://drive.google.com/file/d/1fhgC6hBY8_cnaMOR-TiGL5Pnp2djk8qb/view?usp=sharing)
-- Evaluation: [Download](https://drive.google.com/file/d/1A6_MHbBt2sxUUHu7VFBFmMo2uoWsL8uh/view?usp=sharing)
+We provide dataset for the experiments:
+- Training: [Download](https://drive.google.com/file/d/1pFl0gWlhMIEKKfgLp3abIKD6DNPVMJ_x/view?usp=sharing) (8.9GB)
+- Evaluation: [Download](https://drive.google.com/file/d/1bkdSXkc8UHhRyWiIdafUUqRLpwryqjQz/view?usp=sharing) (27GB)  
+
+After downloading the zip files, you need to **unzip** them.
 
 ## Training
 Set your paths and start training:
 ```bash
-python train.py --outdir=~/training-runs --cfg=ffhq --data=~/data.zip --resume=~/checkpoint.pkl --l2cs-path=~/l2cs_checkpoint.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
+python train.py --outdir=~/training-runs --cfg=ffhq --data=~/extracted/140 --resume=~/checkpoint.pkl --l2cs-path=~/l2cs_checkpoint.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
 ```
 
 ## Generate Images
 1. Single Network
 ```bash
-python gen_samples.py --network=~/checkpoint.pkl --outdir=out/ --seeds=0-3
+python gen_samples.py --network=~/checkpoint.pkl --trunc=0.7 --outdir=out --seeds=0-3
 ```
 
 2. Comparing Two Networks
 ```bash
-python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --l2cs-path=~/l2cs_checkpoint.pkl --outdir=out/ --seeds=0-3
+python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --l2cs-path=~/l2cs_checkpoint.pkl --outdir=out --seeds=0-3
 ```
 
 ## Evaluation  

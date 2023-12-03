@@ -33,6 +33,7 @@ Follow these steps in your bash terminal:
    ```
 6. **Install PyTorch with CUDA 11.8:**
    ```bash
+   conda activate eg3d
    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 --default-timeout=150
    ```
 7. **Clone L2CS-Net repository**
@@ -41,11 +42,13 @@ Follow these steps in your bash terminal:
    git clone https://github.com/Ahmednull/L2CS-Net.git
    ```
 8. **Download L2CS-Net model**  
-   L2CS-Net model checkpoint [here](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)
+   1. Download L2CS-Net model checkpoint [here](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)  
+
+   2. unzip L2CSNet_gaze360.pkl-20231203T031746Z-001.zip to get L2CSNet_gaze360.pkl
    
 9. **Clone Custom Deep3dFaceRecon_pytorch**
    ```bash
-   cd dataset_preprocessing/ffhq
+   cd ../dataset_preprocessing/ffhq
    git clone https://github.com/3D-eye-centric-bias/Deep3DFaceRecon_pytorch.git
    ```
 10. **Install required models**
