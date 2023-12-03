@@ -1,4 +1,4 @@
-# 🌟 Gaze-Corrected EG3D: Overcoming Camera-Facing Gaze Bias in EG3D Scene Generation
+# Gaze-Corrected EG3D: Overcoming Camera-Facing Gaze Bias in EG3D Scene Generation
 
 ### Implementation of Gaze-Corrected EG3D - Enhanced EG3D model with improved gaze alignment
 
@@ -48,6 +48,7 @@ python gen_good_samples.py --network=~/model.pkl --l2cs-path=~/L2CSNet_gaze360.p
 
 ## Evaluation  
 You can evaluate the trained model :
+
 **GFAS, FID, KID, ArcFace Evaluation**
 ```bash
 cd eg3d
