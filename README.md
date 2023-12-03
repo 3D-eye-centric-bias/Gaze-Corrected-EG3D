@@ -23,48 +23,49 @@ After downloading the zip files, you need to **unzip** them.
 ## Training
 Set your paths and start training:
 ```bash
-python train.py --outdir=~/training-runs --cfg=ffhq --data=~/extracted/140 --resume=~/checkpoint.pkl --l2cs-path=~/l2cs_checkpoint.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
+python train.py --outdir=~/training-runs --cfg=ffhq --data=~/extracted/140 --resume=~/model.pkl --l2cs-path=~/L2CSNet_gaze360.pkl --gpus=4 --batch=16 --gamma=1 --batch-gpu=4 --gen_pose_cond=True --neural_rendering_resolution_final=128
 ```
 
 ## Generate Images
 1. Single Network
 ```bash
-python gen_samples.py --network=~/checkpoint.pkl --trunc=0.7 --outdir=out --seeds=0-3
+python gen_samples.py --network=~/model.pkl --outdir=out --seeds=0-3
 ```
 
 2. Comparing Two Networks
 ```bash
-python gen_samples_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --l2cs-path=~/l2cs_checkpoint.pkl --outdir=out --seeds=0-3
+python gen_samples_compare.py --network=~/model1.pkl --network2=~/model2.pkl --l2cs-path=~/L2CSNet_gaze360.pkl --outdir=out --seeds=0-3
 ```
 
 ## Evaluation  
 **GFAS Score(Gaze-Face Alignment Score)**
 ```bash
-python calc_gfas.py --network=~/checkpoint.pkl --l2cs-path=~/l2cs_checkpoint.pkl
+#eg3d/
+python calc_gfas.py --network=~/model.pkl --l2cs-path=~/L2CSNet_gaze360.pkl
 ```
 **FID(Frechet Inception Distance)**
 ```bash
 #eg3d/
-python calc_metrics.py --network=~/checkpoint.pkl --metrics=fid50k_full --data=~/eval
+python calc_metrics.py --network=~/model.pkl --metrics=fid50k_full --data=~/eval
 ```
 
 **KID(Kernel Inception Distance)**
 ```bash
 #eg3d/
-python calc_metrics.py --network=~/checkpoint.pkl --metrics=kid50k_full --data=~/eval
+python calc_metrics.py --network=~/model.pkl --metrics=kid50k_full --data=~/eval
 ```
 
-**ID(Identity consistency)**
+**ArcFace(Identity consistency)**
 ```bash
 #eg3d/
-python calc_id.py --network=~/checkpoint.pkl --outdir=out 
+python calc_id.py --network=~/model.pkl --outdir=out 
 ```
 
 **Pose(Pose Accuracy)**
 1. Generate images with base camera parameters.
 ```bash
 #eg3d/
-python gen_samples_pose.py --network=~/checkpoint.pkl --outdir=pose
+python gen_samples_pose.py --network=~/model.pkl --outdir=pose
 ```
 2. Extract camera parameters from images.
 ```bash

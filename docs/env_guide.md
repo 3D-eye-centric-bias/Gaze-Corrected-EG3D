@@ -1,4 +1,4 @@
-# EG3D Setup Guide
+# Gaze-Corrected EG3D Setup Guide
 
 Follow these steps in your bash terminal:
 
@@ -44,7 +44,7 @@ Follow these steps in your bash terminal:
 8. **Download L2CS-Net model**  
    1. Download L2CS-Net model checkpoint [here](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)  
 
-   2. unzip L2CSNet_gaze360.pkl-20231203T031746Z-001.zip to get L2CSNet_gaze360.pkl
+   2. unzip **L2CSNet_gaze360.pkl-20231203T031746Z-001.zip** to get **L2CSNet_gaze360.pkl**
    
 9. **Clone Custom Deep3dFaceRecon_pytorch**
    ```bash
@@ -52,12 +52,12 @@ Follow these steps in your bash terminal:
    git clone https://github.com/3D-eye-centric-bias/Deep3DFaceRecon_pytorch.git
    ```
 10. **Install required models**
-    1. Download following files
+    1. Download following files (from Deep3dFaceRecon_pytorch)
        - [BFM.zip](https://drive.google.com/file/d/13fPkjRxZP_OUvk_OKebi-R9Xn8Jk0EmH/view?usp=sharing)
        - [checkpoints.zip](https://drive.google.com/file/d/12oBzBmwz0qIFNc18vKedtsfPqyP6rERY/view?usp=sharing)
     2. Unzip and move folders into Deep3dFaceRecon_pytorch directory
        ```bash
-       DeepdFaceRecon_pytorch/
+       Deepd3dFaceRecon_pytorch/
           - BFM
           - checkpoints
           - data
@@ -74,3 +74,10 @@ Follow these steps in your bash terminal:
     cd ../../../../
     pip install -r requirements.txt
     ```
+
+13. **Install libeg11-mesa-dev**
+    ```bash
+    sudo apt-get install libegl1-mesa-dev
+    ```
+
+**Done! Thanks for going through all the steps, you've worked hard :)**
