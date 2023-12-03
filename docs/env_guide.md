@@ -52,12 +52,12 @@ Follow these steps in your bash terminal:
    git clone https://github.com/3D-eye-centric-bias/Deep3DFaceRecon_pytorch.git
    ```
 10. **Install required models**
-    1. Download following files
+    1. Download following files (from Deep3dFaceRecon_pytorch)
        - [BFM.zip](https://drive.google.com/file/d/13fPkjRxZP_OUvk_OKebi-R9Xn8Jk0EmH/view?usp=sharing)
        - [checkpoints.zip](https://drive.google.com/file/d/12oBzBmwz0qIFNc18vKedtsfPqyP6rERY/view?usp=sharing)
     2. Unzip and move folders into Deep3dFaceRecon_pytorch directory
        ```bash
-       DeepdFaceRecon_pytorch/
+       Deepd3dFaceRecon_pytorch/
           - BFM
           - checkpoints
           - data
