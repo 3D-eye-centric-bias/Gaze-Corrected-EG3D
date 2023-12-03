@@ -47,27 +47,22 @@ python gen_good_samples.py --network=~/model.pkl --l2cs-path=~/L2CSNet_gaze360.p
 ```
 
 ## Evaluation  
-**GFAS Score(Gaze-Face Alignment Score)**
+You can evaluate the trained model :
+**GFAS, FID, KID, ArcFace Evaluation**
 ```bash
-#eg3d/
+cd eg3d
+
+#GFAS Score (Gaze-Face Alignment Score)
 python calc_gfas.py --network=~/model.pkl --l2cs-path=~/L2CSNet_gaze360.pkl
-```
-**FID(Frechet Inception Distance)**
-```bash
-#eg3d/
+
+#FID(Frechet Inception Distance)
 python calc_metrics.py --network=~/model.pkl --metrics=fid50k_full --data=~/eval
-```
 
-**KID(Kernel Inception Distance)**
-```bash
-#eg3d/
+#KID(Kernel Inception Distance)
 python calc_metrics.py --network=~/model.pkl --metrics=kid50k_full --data=~/eval
-```
 
-**ArcFace(Identity consistency)**
-```bash
-#eg3d/
-python calc_id.py --network=~/model.pkl --outdir=out 
+#ArcFace(Identity consistency)
+python calc_id.py --network=~/model.pkl --outdir=out
 ```
 
 **Pose(Pose Accuracy)**
@@ -79,13 +74,17 @@ python gen_samples_pose.py --network=~/model.pkl --outdir=pose
 2. Extract camera parameters from images.
 ```bash
 #data_preprocessing/ffhq/
+cd ../data_preprocessing/ffhq/
 python preprocess_in_the_wild.py --indir=../../eg3d/pose
 ```
 3. Calculate L2 distance between base and extracted camera parameters.
 ```bash
 #eg3d/
+cd ../../eg3d
 python calc_pose.py --file1=pose/labels_generate.json --file2=../dataset_preprocessing/ffhq/pose/dataset.json
 ```
+
+Note that evaluation time for FID, KID, Pose, and ArcFace are spent around 30 minutes. GFAS computation is not that expensive, it requires around 5 minutes to evaluate.
 
 ## Citation
 ```bash
