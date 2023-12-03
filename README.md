@@ -17,6 +17,7 @@ Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-C
 We provide dataset for the experiments:
 - Training: [Download](https://drive.google.com/file/d/1pFl0gWlhMIEKKfgLp3abIKD6DNPVMJ_x/view?usp=sharing) (8.9GB)
 - Evaluation: [Download](https://drive.google.com/file/d/1bkdSXkc8UHhRyWiIdafUUqRLpwryqjQz/view?usp=sharing) (27GB)
+After downloading the zip files, you need to **unzip** them.
 
 ## Training
 Set your paths and start training:
