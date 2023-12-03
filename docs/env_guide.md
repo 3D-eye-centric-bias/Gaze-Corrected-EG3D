@@ -74,3 +74,10 @@ Follow these steps in your bash terminal:
     cd ../../../../
     pip install -r requirements.txt
     ```
+
+13. **Install libeg11-mesa-dev**
+    ```bash
+    sudo apt-get install libegl1-mesa-dev
+    ```
+
+**Done! Thanks for going through all the steps, you've worked hard :)**
