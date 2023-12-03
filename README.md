@@ -9,7 +9,7 @@
 Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
 
 ## Download Models
-- Our trained model is available [here](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing) ().
+- Our trained model is available [here](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing) (360MB).
 - Original EG3D models are available [here](https://github.com/NVlabs/eg3d/blob/main/docs/models.md).  
   (We used ffhq512-128.pkl as a baseline)
 
@@ -27,12 +27,12 @@ python train.py --outdir=~/training-runs --cfg=ffhq --data=~/data.zip --resume=~
 ## Generate Images
 1. Single Network
 ```bash
-python gen_samples.py --network=~/checkpoint.pkl --outdir=out/ --seeds=0-3
+python gen_samples.py --network=~/checkpoint.pkl --outdir=out --seeds=0-3
 ```
 
 2. Comparing Two Networks
 ```bash
-python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --l2cs-path=~/l2cs_checkpoint.pkl --outdir=out/ --seeds=0-3
+python gen_samples_gaze_compare.py --network=~/checkpoint1.pkl --network2=~/checkpoint2.pkl --l2cs-path=~/l2cs_checkpoint.pkl --outdir=out --seeds=0-3
 ```
 
 ## Evaluation  
