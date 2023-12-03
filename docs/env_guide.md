@@ -44,7 +44,7 @@ Follow these steps in your bash terminal:
 8. **Download L2CS-Net model**  
    1. Download L2CS-Net model checkpoint [here](https://drive.google.com/drive/folders/1qDzyzXO6iaYIMDJDSyfKeqBx8O74mF8s)  
 
-   2. unzip L2CSNet_gaze360.pkl-20231203T031746Z-001.zip to get L2CSNet_gaze360.pkl
+   2. unzip **L2CSNet_gaze360.pkl-20231203T031746Z-001.zip** to get **L2CSNet_gaze360.pkl**
    
 9. **Clone Custom Deep3dFaceRecon_pytorch**
    ```bash
