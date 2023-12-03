@@ -55,7 +55,7 @@ python calc_metrics.py --network=~/model.pkl --metrics=fid50k_full --data=~/eval
 python calc_metrics.py --network=~/model.pkl --metrics=kid50k_full --data=~/eval
 ```
 
-**ID(Identity consistency)**
+**ArcFace(Identity consistency)**
 ```bash
 #eg3d/
 python calc_id.py --network=~/model.pkl --outdir=out 
