@@ -30,6 +30,7 @@ We provide dataset for the experiments:
 - Training: [Download](https://drive.google.com/file/d/1pFl0gWlhMIEKKfgLp3abIKD6DNPVMJ_x/view?usp=sharing) (8.9GB)
 - Evaluation: [Download](https://drive.google.com/file/d/1bkdSXkc8UHhRyWiIdafUUqRLpwryqjQz/view?usp=sharing) (27GB)  
 
+Theses datasets are preprocessed from the [FFHQ](https://github.com/NVlabs/ffhq-dataset) dataset.
 After downloading the zip files, you need to **unzip** them.
 
 ## Training
