@@ -33,6 +33,7 @@ Follow these steps in your bash terminal:
    ```
 6. **Install PyTorch with CUDA 11.8:**
    ```bash
+   conda activate eg3d
    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 --default-timeout=150
    ```
 7. **Clone L2CS-Net repository**
