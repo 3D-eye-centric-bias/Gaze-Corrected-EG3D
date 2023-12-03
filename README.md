@@ -9,14 +9,14 @@
 Refer to [Environment Setup Guide](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/blob/main/docs/env_guide.md) for installation and setup instructions.
 
 ## Download Models
-- Our trained model is available [here](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing).
+- Our trained model is available [here](https://drive.google.com/file/d/1LAzjJBhp5GGZLymWt_VP-LMzOHI8pfzj/view?usp=sharing) ().
 - Original EG3D models are available [here](https://github.com/NVlabs/eg3d/blob/main/docs/models.md).  
   (We used ffhq512-128.pkl as a baseline)
 
 ## Data Access
 We provide dataset for the experiments:
-- Training: [Download](https://drive.google.com/file/d/1pFl0gWlhMIEKKfgLp3abIKD6DNPVMJ_x/view?usp=sharing)
-- Evaluation: [Download](https://drive.google.com/file/d/1bkdSXkc8UHhRyWiIdafUUqRLpwryqjQz/view?usp=sharing)
+- Training: [Download](https://drive.google.com/file/d/1pFl0gWlhMIEKKfgLp3abIKD6DNPVMJ_x/view?usp=sharing) (8.9GB)
+- Evaluation: [Download](https://drive.google.com/file/d/1bkdSXkc8UHhRyWiIdafUUqRLpwryqjQz/view?usp=sharing) (27GB)
 
 ## Training
 Set your paths and start training:
