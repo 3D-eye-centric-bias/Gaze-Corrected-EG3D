@@ -48,7 +48,7 @@ Follow these steps in your bash terminal:
    
 9. **Clone Custom Deep3dFaceRecon_pytorch**
    ```bash
-   cd dataset_preprocessing/ffhq
+   cd ../dataset_preprocessing/ffhq
    git clone https://github.com/3D-eye-centric-bias/Deep3DFaceRecon_pytorch.git
    ```
 10. **Install required models**
