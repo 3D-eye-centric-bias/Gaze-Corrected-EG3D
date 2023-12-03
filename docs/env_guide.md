@@ -1,4 +1,4 @@
-# EG3D Setup Guide
+# Gaze-Corrected EG3D Setup Guide
 
 Follow these steps in your bash terminal:
 
