@@ -40,6 +40,7 @@ python gen_samples_compare.py --network=~/model1.pkl --network2=~/model2.pkl --l
 ## Evaluation  
 **GFAS Score(Gaze-Face Alignment Score)**
 ```bash
+#eg3d/
 python calc_gfas.py --network=~/model.pkl --l2cs-path=~/L2CSNet_gaze360.pkl
 ```
 **FID(Frechet Inception Distance)**
