@@ -29,7 +29,7 @@ python train.py --outdir=~/training-runs --cfg=ffhq --data=~/extracted/140 --res
 ## Generate Images
 1. Single Network
 ```bash
-python gen_samples.py --network=~/model.pkl --trunc=0.7 --outdir=out --seeds=0-3
+python gen_samples.py --network=~/model.pkl --outdir=out --seeds=0-3
 ```
 
 2. Comparing Two Networks
