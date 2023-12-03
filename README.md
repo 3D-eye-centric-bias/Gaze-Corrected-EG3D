@@ -1,8 +1,12 @@
 # 🌟 Gaze-Corrected EG3D: Overcoming Camera-Facing Gaze Bias in EG3D Scene Generation
 
-### ****Welcome** to Gaze-Corrected EG3D - **Enhanced EG3D model** with **improved gaze alignment!****
+### Implementation of Gaze-Corrected EG3D - Enhanced EG3D model with improved gaze alignment
 
-![image](https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/assets/63842546/ec4959b1-5e5c-44ee-9c3d-175a5bc4818c)
+<img width="786" alt="qualitative" src="https://github.com/3D-eye-centric-bias/Gaze-Corrected-EG3D/assets/89647814/5d01fb2d-7d80-4398-8942-8406d2ac5ad9">
+
+You can try to generate above image with seed number 346.
+
+Abstract: Notwithstanding that EG3D achieved realistic image quality with high computational efficiency, the gaze following problem hinders the real-world application of 3D GANs such as virtual reality and human-computer interaction. Due to the data bias when rotating the face, all existing 3D GANs cannot maintain the direction of eye when the camera is rotating and gazes the camera. In this work, we tackle this problem by fusing 3D-aware image synthesis with gaze estimation for the first time. We subjoin a pretrained state-of-the-art gaze estimation model called L2CS-Net into training pipeline of EG3D, successfully addressed the inherent gaze following issue on FFHQ dataset.
  
  
 ## Quick Setup
